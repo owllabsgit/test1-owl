@@ -15,6 +15,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # 4. Définir le répertoire de travail
 COPY . /var/www/html/
 WORKDIR /var/www/html
+ENV DATABASE_URL=mysql://user:password@mysql:3306/dbsymfony
+
 
 # 5. Copier les fichiers Composer (meilleure gestion du cache Docker)
 COPY composer.json composer.lock ./
