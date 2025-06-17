@@ -22,7 +22,7 @@ ENV DATABASE_URL=mysql://user:password@mysql:3306/dbsymfony
 COPY composer.json composer.lock ./
 
 # 6. Installer les dépendances PHP avec Composer
-RUN composer install --no-interaction --optimize-autoloader
+RUN composer install --no-scripts --no-interaction --optimize-autoloader
 
 # 8. Définir les permissions
 RUN chown -R www-data:www-data /var/www/html \
