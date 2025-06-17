@@ -5,7 +5,6 @@
 /.env.local
 .env.*.local
 .env.test.local
-/.env
 /public/bundles/
 /config/secrets/prod/
 /config/secrets/test/
