@@ -13,6 +13,7 @@ RUN a2enmod rewrite
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # 4. Définir le répertoire de travail
+COPY . /var/www/html/
 WORKDIR /var/www/html
 
 # 5. Copier les fichiers Composer (meilleure gestion du cache Docker)
@@ -20,9 +21,6 @@ COPY composer.json composer.lock ./
 
 # 6. Installer les dépendances PHP avec Composer
 RUN composer install --no-interaction --optimize-autoloader
-
-# 7. Copier le reste de l'application Symfony
-COPY . .
 
 # 8. Définir les permissions
 RUN chown -R www-data:www-data /var/www/html \
