@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony-app
+  labels:
+    app: symfony
+spec:
+  replicas: 3  # High availability: 3 replicas
+  selector:
+    matchLabels:
+      app: symfony
+  template:
+    metadata:
+      labels:
+        app: symfony
+    spec:
+      containers:
+      - name: symfony
+        image: medlouay/symfony-apptest1:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: DATABASE_URL
+          value: mysql://root:root@mysql:3306/symfony
+        volumeMounts:
+        - name: env-volume
+          mountPath: /var/www/html/.env
+          subPath: .env
+        - name: symfony-storage
+          mountPath: /var/www/html/var
+      volumes:
+      - name: env-volume
+        configMap:
+          name: symfony-env
+      - name: symfony-storage
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: symfony-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: symfony
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080

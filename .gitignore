@@ -1,0 +1,38 @@
+# Symfony standard ignores
+/var/
+/vendor/
+/node_modules/
+/.env.local
+.env.*.local
+.env.test.local
+/.env
+/public/bundles/
+/config/secrets/prod/
+/config/secrets/test/
+/translations/*.db
+
+# Logs and cache
+/log/
+/var/log/
+/var/cache/
+/var/sessions/
+
+# PHPUnit
+/phpunit.xml
+/phpunit.xml.dist
+/phpunit.result.cache
+
+# IDE & OS files
+*.swp
+*.swo
+*~
+.DS_Store
+.idea/
+/.vscode/
+
+# Docker-related
+docker-compose.override.yml
+.docker/
+
+# Build files
+/build/

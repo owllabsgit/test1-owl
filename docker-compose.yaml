@@ -1,0 +1,20 @@
+services:
+  symfony_app:
+    build: .
+    ports:
+      - "85:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: "mysql://root:root@database:3306/symfony"
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+    ports:
+      - "3306:3306"
+
