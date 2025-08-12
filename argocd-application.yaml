@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/louayparadigma/test1-owl.git'
+    repoURL: 'https://github.com/owllabsgit/test1-owl.git'
     targetRevision: main
     path: .  # car tous les YAML sont à la racine du repo
   destination:
