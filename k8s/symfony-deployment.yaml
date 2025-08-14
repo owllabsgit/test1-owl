@@ -2,49 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: symfony-app
+  namespace: test
   labels:
-    app: symfony
+    app: symfony-app
 spec:
-  replicas: 3  # High availability: 3 replicas
+  replicas: 3
   selector:
     matchLabels:
-      app: symfony
+      app: symfony-app
   template:
     metadata:
       labels:
-        app: symfony
+        app: symfony-app
     spec:
       containers:
-      - name: symfony
-        image: owllabsdocker/owllabs:latest
-        ports:
-        - containerPort: 80
-        env:
-        - name: DATABASE_URL
-          value: mysql://root:root@mysql:3306/symfony
-        volumeMounts:
-        - name: env-volume
-          mountPath: /var/www/html/.env
-          subPath: .env
-        - name: symfony-storage
-          mountPath: /var/www/html/var
-      volumes:
-      - name: env-volume
-        configMap:
-          name: symfony-env
-      - name: symfony-storage
-        emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: symfony-app
-spec:
-  type: LoadBalancer
-  selector:
-    app: symfony
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30000
+        - name: symfony
+          image: owllabsdocker/owllabs:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: symfony-env
+          env:
+            - name: DATABASE_URL
+              value: mysql://root:root@mysql:3306/symfony
+      restartPolicy: Always
+
