@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: symfony
-        image: owllabsdocker/owllabs-apptest1:latest
+        image: owllabsdocker/owllabs:latest
         ports:
         - containerPort: 80
         env:
