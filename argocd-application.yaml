@@ -1,27 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-meta
+metadata:
   name: my-app
   namespace: argocd
   annotations:
-    # Tell Argo CD Image Updater to track this image
     argocd-image-updater.argoproj.io/image-list: symfony=owllabsdocker/owllabs
-
-    # Map the image to the kustomize field
     argocd-image-updater.argoproj.io/symfony.kustomize.image-name: owllabsdocker/owllabs
-
-    # Allow any tag (good for testing with 'latest')
-    argocd-image-updater.argoproj.io/symfony.allow-tags: regexp:^.*$
-
-    # ✅ Write back to Argo CD (no Git push!)
+    argocd-image-updater.argoproj.io/symfony.allow-tags: regexp:^build-[a-zA-Z0-9-]+$
     argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/owllabs-git/test1-owl.git  # ← your repo
+    repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
     path: k8s
-    # ✅ This enables Kustomize (critical!)
     kustomize: {}
   destination:
     server: https://kubernetes.default.svc

@@ -9,7 +9,6 @@ resources:
   - symfony-service.yaml
   - symfony-deployment.yaml
 
-# This is where image updater will change the image
 images:
-  - name: owllabsdocker/owllabs   # ← REPLACE with your actual image
-    newTag: latest
+  - name: owllabsdocker/owllabs
+    newTag: build-1   # placeholder
