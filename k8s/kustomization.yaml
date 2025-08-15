@@ -11,4 +11,4 @@ resources:
 
 images:
   - name: owllabsdocker/owllabs
-    newTag: build-1   # placeholder
+    newTag: latest   # placeholder
