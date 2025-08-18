@@ -1,23 +1,25 @@
 # k8s/symfony-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+meta
   name: symfony-app
   namespace: test
+  labels:
+    app: symfony-app
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: symfony-app
   template:
-    metadata:
+    meta
       labels:
         app: symfony-app
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/owllabs:build-PLACEHOLDER
-          imagePullPolicy: IfNotPresent
+          image: owllabsdocker/owllabs:latest
+          imagePullPolicy: Always  # ← critical!
           ports:
             - containerPort: 80
           envFrom:
