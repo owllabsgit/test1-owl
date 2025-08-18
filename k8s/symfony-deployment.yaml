@@ -13,9 +13,6 @@ spec:
     metadata:
       labels:
         app: symfony-app
-      annotations:
-        # 🔥 Cette ligne force un redéploiement à chaque changement
-        kubernetes.io/change-trigger: "redeploy-on-change-$(date +%s)"
     spec:
       containers:
         - name: symfony
