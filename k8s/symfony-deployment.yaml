@@ -1,10 +1,9 @@
+# k8s/symfony-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: symfony-app
   namespace: test
-  labels:
-    app: symfony-app
 spec:
   replicas: 3
   selector:
@@ -14,6 +13,9 @@ spec:
     metadata:
       labels:
         app: symfony-app
+      annotations:
+        # 🔥 Cette ligne force un redéploiement à chaque changement
+        kubernetes.io/change-trigger: "redeploy-on-change-$(date +%s)"
     spec:
       containers:
         - name: symfony
@@ -27,5 +29,3 @@ spec:
           env:
             - name: DATABASE_URL
               value: mysql://root:root@mysql:3306/symfony
-      restartPolicy: Always
-
