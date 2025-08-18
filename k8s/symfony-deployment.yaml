@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/owllabs:latest
+          image: owllabsdocker/owllabs:build-PLACEHOLDER
           imagePullPolicy: Always
           ports:
             - containerPort: 80
