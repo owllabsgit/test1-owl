@@ -1,23 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata:
+meta
   name: my-app
   namespace: argocd
-  annotations:
-    annotations:
-  argocd-image-updater.argoproj.io/image-list: symfony=owllabsdocker/owllabs
-  argocd-image-updater.argoproj.io/symfony.kustomize.image-name: owllabsdocker/owllabs
-  argocd-image-updater.argoproj.io/symfony.allow-tags: regexp:^build-[0-9]+$
-  argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
+  project: default
   source:
     repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
     path: k8s
     kustomize:
-      # 🔥 Cette ligne change à chaque sync → force un rollout
+      # 🔥 This changes on every sync → forces rollout
       commonAnnotations:
-        rollout-time: '{{time "2006-01-02T15:04:05Z07:00"}}'
+        redeploy-timestamp: '{{time "2006-01-02T15:04:05Z07:00"}}'
   destination:
     server: https://kubernetes.default.svc
     namespace: test

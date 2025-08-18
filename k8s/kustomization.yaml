@@ -8,7 +8,7 @@ resources:
   - mysql-deployment.yaml
   - symfony-service.yaml
   - symfony-deployment.yaml
-
+  
 images:
   - name: owllabsdocker/owllabs
     newTag: latest   # placeholder
