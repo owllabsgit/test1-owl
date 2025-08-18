@@ -1,8 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-meta
+metadata:  # ✅ Fixed: was 'meta'
   name: my-app
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: symfony=owllabsdocker/owllabs
+    argocd-image-updater.argoproj.io/symfony.kustomize.image-name: owllabsdocker/owllabs
+    argocd-image-updater.argoproj.io/symfony.allow-tags: latest
+    argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
   project: default
   source:
@@ -10,7 +15,6 @@ spec:
     targetRevision: main
     path: k8s
     kustomize:
-      # 🔥 This changes on every sync → forces rollout
       commonAnnotations:
         redeploy-timestamp: '{{time "2006-01-02T15:04:05Z07:00"}}'
   destination:
