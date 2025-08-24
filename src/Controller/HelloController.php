@@ -11,6 +11,6 @@ class HelloController extends AbstractController
     #[Route('/', name: 'app_hello')]
     public function index(): Response
     {
-        return new Response('<h1>Hello from garden 503! </h1>');
+        return new Response('<h1>Hello from garden 504! </h1>');
     }
 }
