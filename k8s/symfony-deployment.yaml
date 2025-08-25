@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/owllabs:latest
-          imagePullPolicy: Always  # ← critical!
+          image: owllabsdocker/owllabs:latest  # Will be updated by Tekton
+          # imagePullPolicy: IfNotPresent     # Optional, default behavior
           ports:
             - containerPort: 80
           envFrom:
