@@ -1,29 +1,43 @@
 # argocd-application.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata:
-  name: my-app
+meta
+  name: owllabs-app
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: symfony=owllabsdocker/owllabs
-    argocd-image-updater.argoproj.io/symfony.kustomize.image-name: owllabsdocker/owllabs
-    argocd-image-updater.argoproj.io/symfony.allow-tags: latest
-    argocd-image-updater.argoproj.io/write-back-method: git
+    # 🔔 Optional: Enable Argo CD Image Updater (install it separately)
+    # Remove if not using Image Updater
+    argocd-image-updater.argoproj.io/image-list: owllabs=docker.io/owllabsdocker/owllabs
+    argocd-image-updater.argoproj.io/owllabs.helm.image-tag: tag
+    argocd-image-updater.argoproj.io/update-strategy: latest-tag
+    argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
+  # Project in Argo CD (usually 'default')
   project: default
+
+  # 📁 Source of truth: your Git repo with Kubernetes manifests
   source:
-    repoURL: https://github.com/owllabsgit/test1-owl.git
+    repoURL: https://github.com/owllabsgit/argocd-apps.git
     targetRevision: main
-    path: k8s
-    kustomize:
-      commonAnnotations:
-        redeploy-timestamp: '{{time "2006-01-02T15:04:05Z07:00"}}'
+    path: apps/owllabs
+
+  # 🎯 Where to deploy
   destination:
     server: https://kubernetes.default.svc
-    namespace: test
+    namespace: dev
+
+  # 🔁 Sync policy: automated
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      # Auto-sync when Git changes
+      prune: true                    # Delete resources removed from Git
+      selfHeal: true                 # Fix manual drift
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=true         # Create 'prod' if missing
+      - ApplyOutOfSyncOnly=true      # Only apply when out of sync
+
+  # 🔍 Optional: Health checks, retry, etc.
+  # You can remove if not needed
+  # info:
+  #   - name: url
+  #     value: https://myapp.example.com
