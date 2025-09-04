@@ -8,6 +8,7 @@ resources:
   - mysql-deployment.yaml
   - symfony-service.yaml
   - symfony-deployment.yaml
+  - symfony-configmap.yaml
 
 images:
   - name: owllabsdocker/owllabs
