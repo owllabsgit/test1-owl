@@ -1,7 +1,7 @@
 # k8s/symfony-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
-meta
+metadata:
   name: symfony-app
   namespace: dev
   labels:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/owllabs:latest
+          image: owllabsdocker/test1-owl:latest
           imagePullPolicy: Always   # ✅ Add this line
           ports:
             - containerPort: 80
