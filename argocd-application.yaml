@@ -7,7 +7,7 @@ meta
   annotations:
     # 🔔 Optional: Enable Argo CD Image Updater (install it separately)
     # Remove if not using Image Updater
-    argocd-image-updater.argoproj.io/image-list: owllabs=docker.io/owllabsdocker/owllabs
+    argocd-image-updater.argoproj.io/image-list: owllabs=docker.io/owllabsdocker/test1-owl
     argocd-image-updater.argoproj.io/owllabs.helm.image-tag: tag
     argocd-image-updater.argoproj.io/update-strategy: latest-tag
     argocd-image-updater.argoproj.io/write-back-method: argocd
@@ -17,9 +17,9 @@ spec:
 
   # 📁 Source of truth: your Git repo with Kubernetes manifests
   source:
-    repoURL: https://github.com/owllabsgit/argocd-apps.git
+    repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
-    path: apps/owllabs
+    path: k8s
 
   # 🎯 Where to deploy
   destination:
@@ -36,8 +36,4 @@ spec:
       - CreateNamespace=true         # Create 'prod' if missing
       - ApplyOutOfSyncOnly=true      # Only apply when out of sync
 
-  # 🔍 Optional: Health checks, retry, etc.
-  # You can remove if not needed
-  # info:
-  #   - name: url
-  #     value: https://myapp.example.com
+ 
