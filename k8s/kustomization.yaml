@@ -11,5 +11,5 @@ resources:
   - symfony-configmap.yaml
 
 images:
-  - name: owllabsdocker/owllabs
+  - name: owllabsdocker/test1-owl
     newTag: latest
