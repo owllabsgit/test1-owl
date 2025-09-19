@@ -12,7 +12,7 @@ spec:
     matchLabels:
       app: symfony-app
   template:
-    meta
+    metadata:
       labels:
         app: symfony-app
     spec:
