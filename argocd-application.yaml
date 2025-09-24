@@ -1,39 +1,30 @@
-# argocd-application.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 meta
   name: owllabs-app
   namespace: argocd
   annotations:
-    # 🔔 Optional: Enable Argo CD Image Updater (install it separately)
-    # Remove if not using Image Updater
-    argocd-image-updater.argoproj.io/image-list: owllabs=docker.io/owllabsdocker/test1-owl
-    argocd-image-updater.argoproj.io/owllabs.helm.image-tag: tag
-    argocd-image-updater.argoproj.io/update-strategy: latest-tag
-    argocd-image-updater.argoproj.io/write-back-method: argocd
+    # ✅ Enable Argo CD Image Updater (only if installed!)
+    argocd-image-updater.argoproj.io/image-list: app=docker.io/owllabsdocker/test1-owl
+    # ✅ Match tags that look like Git SHAs (7-40 hex chars)
+    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40})$
+    # ✅ Use "name" strategy: pick the tag that sorts last alphabetically (SHA works)
+    argocd-image-updater.argoproj.io/app.update-strategy: name
+    # ✅ Write back updated image to Git (requires write access)
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/your-git-creds
 spec:
-  # Project in Argo CD (usually 'default')
   project: default
-
-  # 📁 Source of truth: your Git repo with Kubernetes manifests
   source:
     repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
     path: k8s
-
-  # 🎯 Where to deploy
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
-
-  # 🔁 Sync policy: automated
   syncPolicy:
     automated:
-      # Auto-sync when Git changes
-      prune: true                    # Delete resources removed from Git
-      selfHeal: true                 # Fix manual drift
+      prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true         # Create 'prod' if missing
-      - ApplyOutOfSyncOnly=true      # Only apply when out of sync
-
- 
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
