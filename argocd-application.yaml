@@ -5,9 +5,9 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: test1-owl=docker.io/owllabsdocker/test1-owl
-    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40})$
+    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40}|latest|test-check)$
     argocd-image-updater.argoproj.io/app.update-strategy: name
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/your-git-creds
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
 spec:
   project: default
   source:
