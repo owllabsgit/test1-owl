@@ -4,17 +4,10 @@ metadata:
   name: owllabs-app
   namespace: argocd
   annotations:
-    # Enable Argo CD Image Updater
-    argocd-image-updater.argoproj.io/image-list: app=docker.io/owllabsdocker/test1-owl:latest
-    # Match tags that look like Git SHAs (7-40 hex chars)
+    argocd-image-updater.argoproj.io/image-list: test1-owl=docker.io/owllabsdocker/test1-owl
     argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40})$
-    # Use "name" strategy (lexical sort of tags)
-    argocd-image-updater.argoproj.io/app.update-strategy: digest
-    # Write back method (choose one):
-    # If you want updater to update Git:
-    # argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/your-git-creds
-    # Or, if you want updater to only update ArgoCD live state:
-    argocd-image-updater.argoproj.io/write-back-method: argocd
+    argocd-image-updater.argoproj.io/app.update-strategy: name
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/your-git-creds
 spec:
   project: default
   source:
