@@ -4,16 +4,20 @@ metadata:
   name: owllabs-app
   namespace: argocd
   annotations:
+    # List the container name from your Deployment mapped to the image
     argocd-image-updater.argoproj.io/image-list: test1-owl=docker.io/owllabsdocker/test1-owl
-    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40}|latest|test-check)$
+    # Allow SHA tags and "latest" (or any other tag you push)
+    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([a-f0-9]{7,40}|latest)$
+    # Pick the last tag alphabetically (good for SHAs)
     argocd-image-updater.argoproj.io/app.update-strategy: name
+    # Optional: write back updated image to Git (requires secret)
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
 spec:
   project: default
   source:
     repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
-    path: k8s
+    path: k8s  # make sure your Deployment manifest is in this folder
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
@@ -24,3 +28,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
+
