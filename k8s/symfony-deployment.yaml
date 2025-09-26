@@ -21,7 +21,37 @@ spec:
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/test1-owl
+          # k8s/symfony-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony-app
+  namespace: dev
+  labels:
+    app: symfony-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: symfony-app
+  template:
+    metadata:
+      labels:
+        app: symfony-app
+    spec:
+      containers:
+        - name: symfony
+          image: owllabsdocker/test1-owl:{{IMAGE_TAG}}  # <- placeholder
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: symfony-env
+          env:
+            - name: DATABASE_URL
+              value: mysql://root:root@mysql:3306/symfony
+
           imagePullPolicy: Always
           ports:
             - containerPort: 80
