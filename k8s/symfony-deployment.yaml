@@ -6,6 +6,9 @@ metadata:
   namespace: dev
   labels:
     app: symfony-app
+  annotations:
+    # Tell Argo CD Image Updater which image to track
+    argocd-image-updater.argoproj.io/image-list: symfony=owllabsdocker/test1-owl
 spec:
   replicas: 3
   selector:
@@ -19,7 +22,7 @@ spec:
       containers:
         - name: symfony
           image: owllabsdocker/test1-owl
-          imagePullPolicy: Always   # ✅ Add this line
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           envFrom:
@@ -28,3 +31,4 @@ spec:
           env:
             - name: DATABASE_URL
               value: mysql://root:root@mysql:3306/symfony
+
