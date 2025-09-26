@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: symfony
-          image: owllabsdocker/test1-owl
+          image: owllabsdocker/test1-owl:latest
           imagePullPolicy: Always   # ✅ Add this line
           ports:
             - containerPort: 80
