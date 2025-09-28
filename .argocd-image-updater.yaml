@@ -1,0 +1,41 @@
+# .argocd-image-updater.yaml
+# Central config for Argo CD Image Updater
+
+update:
+  # Global Git write-back method (can override per app)
+  strategy: git
+  git:
+    branch: main
+    commitMessage: "chore: update image tags for {{ .AppName }} ({{ .NewTag }})"
+
+registries:
+  - name: dockerhub
+    prefix: docker.io
+    api_url: https://registry-1.docker.io   # ✅ Correct DockerHub API URL
+    default: true
+
+apps:
+  - name: symfony-app-dev
+    namespace: argocd
+    images:
+      - name: docker.io/owllabsdocker/test1-owl
+        updatePolicy: newest-build
+        allowTags: regexp:^([0-9a-f]{7,})$   # ✅ commit SHA tags
+        path: k8s/overlays/dev
+        kustomize: {}
+  - name: symfony-app-stg
+    namespace: argocd
+    images:
+      - name: docker.io/owllabsdocker/test1-owl
+        updatePolicy: newest-build
+        allowTags: regexp:^([0-9a-f]{7,})$
+        path: k8s/overlays/stg
+        kustomize: {}
+  - name: symfony-app-prod
+    namespace: argocd
+    images:
+      - name: docker.io/owllabsdocker/test1-owl
+        updatePolicy: newest-build
+        allowTags: regexp:^([0-9a-f]{7,})$
+        path: k8s/overlays/prod
+        kustomize: {}

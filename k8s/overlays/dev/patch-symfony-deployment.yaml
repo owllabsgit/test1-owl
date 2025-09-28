@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test1-owl
+spec:
+  template:
+    spec:
+      containers:
+        - name: test1-owl
+          image: docker.io/owllabsdocker/test1-owl:{{IMAGE_TAG}}
+          imagePullPolicy: Always
+          env:
+            - name: APP_ENV
+              value: dev
+

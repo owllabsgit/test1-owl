@@ -4,17 +4,18 @@ metadata:
   name: test1-owl-dev
   namespace: argocd
   annotations:
+    # Image updater settings
     argocd-image-updater.argoproj.io/image-list: app=docker.io/owllabsdocker/test1-owl
     argocd-image-updater.argoproj.io/app.update-strategy: newest-build
     argocd-image-updater.argoproj.io/app.allow-tags: regexp:^([0-9a-f]{7,})$
     argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main  
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   project: default
   source:
     repoURL: https://github.com/owllabsgit/test1-owl.git
     targetRevision: main
-    path: k8s/dev         # ← points to dev kustomize
+    path: k8s/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
@@ -22,3 +23,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
