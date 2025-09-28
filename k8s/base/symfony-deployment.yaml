@@ -1,29 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: symfony-app
+  name: test1-owl
   labels:
-    app: symfony-app
+    app: test1-owl
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: symfony-app
+      app: test1-owl
   template:
     metadata:
       labels:
-        app: symfony-app
+        app: test1-owl
     spec:
       containers:
-        - name: symfony
-          image: owllabsdocker/test1-owl:latest
+        - name: test1-owl
+          image: owllabsdocker/test1-owl:latest  # placeholder, Image Updater replaces this
           imagePullPolicy: Always
           ports:
             - containerPort: 80
           envFrom:
             - configMapRef:
-                name: symfony-env
+                name: test1-owl-env
           env:
             - name: DATABASE_URL
-              value: mysql://root:root@mysql:3306/symfony
-
+              value: mysql://root:root@mysql:3306/test1-owl

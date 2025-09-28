@@ -1,4 +1,3 @@
-# k8s/base/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -6,10 +5,11 @@ resources:
   - mysql-pv.yaml
   - mysql-pvc.yaml
   - mysql-deployment.yaml
-  - symfony-service.yaml
-  - symfony-deployment.yaml
-  - symfony-configmap.yaml
+  - test1-owl-service.yaml
+  - test1-owl-deployment.yaml
+  - test1-owl-configmap.yaml
 
 images:
   - name: owllabsdocker/test1-owl
     newTag: latest
+

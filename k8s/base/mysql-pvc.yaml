@@ -1,11 +1,7 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: ConfigMap
 metadata:
-  name: mysql-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
+  name: test1-owl-env   # renamed to match app
+data:
+  APP_ENV: dev
+  APP_DEBUG: "1"

@@ -21,7 +21,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
-              value: symfony
+              value: test1-owl   # changed from symfony to match app name
           ports:
             - containerPort: 3306
           volumeMounts:
@@ -31,4 +31,3 @@ spec:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pvc
-
