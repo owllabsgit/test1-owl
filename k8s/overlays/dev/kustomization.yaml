@@ -7,8 +7,8 @@ resources:
   - ../../base
   - namespace.yaml
 
-patchesStrategicMerge:
-  - patch-symfony-deployment.yaml
+patches:
+  - patch-test1-owl-deployment.yaml
 
 images:
   - name: docker.io/owllabsdocker/test1-owl
