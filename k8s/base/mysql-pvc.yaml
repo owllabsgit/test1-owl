@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
-meta
+metadata:
   name: mysql-pvc
 spec:
   accessModes:
@@ -8,5 +8,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  # Let K3s auto-provision with local-path
-  # storageClassName: local-path  # optional (it's default)
+
