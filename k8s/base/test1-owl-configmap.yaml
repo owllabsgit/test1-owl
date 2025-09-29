@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: symfony-env
+  name: test1-owl-env
 data:
   APP_ENV: dev
   APP_DEBUG: "1"
