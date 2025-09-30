@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - docker.io/owllabsdocker/test1-owl:138b3e69e8175194d0de24528ec008952982e4ad
+  - docker.io/owllabsdocker/test1-owl:a39b761b8fc4e1439d4ef6024e5033b49595b2b0
